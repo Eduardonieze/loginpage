@@ -3,16 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myWeb</title>
+    <title>Caesar Cipher Tool</title>
+    <style>
+        body {
+        background-image: url('https://media.tenor.com/uka0g3lOxb0AAAAM/black-man-down-syndrome.gif');
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+    }
+    input, button {
+        margin: 10px;
+        padding: 5px;
+    }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>eduardo's Website Login form</h2>
-        <form action="#" method="post">
-            <input type="text" name="username" placeholder="Username" required><br>
-            <input type="password" name="password" placeholder="Password" required><br>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    <h1>Caesar Cipher</h1>
+    <label for="plaintext" style="font-size: 28px; color: rgb(123, 80, 124);">Plaintext:</label>
+    <input type="text" id="plaintext" placeholder="Enter your message"><br>
+    <label for="key" style="font-size: 28px; color: rgb(123, 80, 124);">Key (Shift Value):</label>
+    <input type="number" id="key" placeholder="Enter key (e.g., 3)"><br>
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button>
+    <h3>Result:</h3>
+    <p id="result"></p>
+
+    <script>
+        function encrypt() {
+            const plaintext = document.getElementById('plaintext').value;
+            const key = parseInt(document.getElementById('key').value);
+            let ciphertext = '';
+            for (let char of plaintext) {
+                if (char.match(/[a-zA-Z]/)) {
+                    const base = char === char.toUpperCase() ? 65 : 97; 
+                    const code = ((char.charCodeAt(0) - base + key) % 26) + base;
+                    ciphertext += String.fromCharCode(code);
+                } else {
+                    ciphertext += char; 
+                }
+            }
+            document.getElementById('result').innerText = ciphertext;
+        }
+
+        function decrypt() {
+            const ciphertext = document.getElementById('plaintext').value;
+            const key = parseInt(document.getElementById('key').value);
+            let plaintext = '';
+            for (let char of ciphertext) {
+                if (char.match(/[a-zA-Z]/)) {
+                    const base = char === char.toUpperCase() ? 65 : 97; 
+                    const code = ((char.charCodeAt(0) - base - key + 26) % 26) + base;
+                    plaintext += String.fromCharCode(code);
+                } else {
+                    plaintext += char; 
+                }
+            }
+            document.getElementById('result').innerText = plaintext;
+        }
+    </script>
 </body>
 </html>
