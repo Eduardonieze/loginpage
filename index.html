@@ -3,63 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caesar Cipher Tool</title>
-    <style>
-        body {
-        background-image: url('https://media.tenor.com/uka0g3lOxb0AAAAM/black-man-down-syndrome.gif');
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin-top: 50px;
-    }
-    input, button {
-        margin: 10px;
-        padding: 5px;
-    }
-    </style>
+    <title>Enhanced Caesar Cipher Tool</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Caesar Cipher</h1>
-    <label for="plaintext" style="font-size: 28px; color: rgb(123, 80, 124);">Plaintext:</label>
-    <input type="text" id="plaintext" placeholder="Enter your message"><br>
-    <label for="key" style="font-size: 28px; color: rgb(123, 80, 124);">Key (Shift Value):</label>
-    <input type="number" id="key" placeholder="Enter key (e.g., 3)"><br>
-    <button onclick="encrypt()">Encrypt</button>
-    <button onclick="decrypt()">Decrypt</button>
-    <h3>Result:</h3>
-    <p id="result"></p>
-
-    <script>
-        function encrypt() {
-            const plaintext = document.getElementById('plaintext').value;
-            const key = parseInt(document.getElementById('key').value);
-            let ciphertext = '';
-            for (let char of plaintext) {
-                if (char.match(/[a-zA-Z]/)) {
-                    const base = char === char.toUpperCase() ? 65 : 97; 
-                    const code = ((char.charCodeAt(0) - base + key) % 26) + base;
-                    ciphertext += String.fromCharCode(code);
-                } else {
-                    ciphertext += char; 
-                }
-            }
-            document.getElementById('result').innerText = ciphertext;
-        }
-
-        function decrypt() {
-            const ciphertext = document.getElementById('plaintext').value;
-            const key = parseInt(document.getElementById('key').value);
-            let plaintext = '';
-            for (let char of ciphertext) {
-                if (char.match(/[a-zA-Z]/)) {
-                    const base = char === char.toUpperCase() ? 65 : 97; 
-                    const code = ((char.charCodeAt(0) - base - key + 26) % 26) + base;
-                    plaintext += String.fromCharCode(code);
-                } else {
-                    plaintext += char; 
-                }
-            }
-            document.getElementById('result').innerText = plaintext;
-        }
-    </script>
+    <h1>Enhanced Caesar Cipher</h1>
+    <div class="container">
+        <label for="plaintext">Plaintext:</label>
+        <input type="text" id="plaintext" placeholder="Enter your message">
+        <label for="secondary-shifts">Secondary Shifts:</label>
+        <input type="text" id="secondary-shifts" placeholder="Enter shifts (comma-separated, e.g., 3,1,4)">
+        <div class="buttons">
+            <button onclick="encrypt()">Encrypt</button>
+            <button onclick="decrypt()">Decrypt</button>
+        </div>
+        <h3>After Initial Shift:</h3>
+        <p id="initial-result"></p>
+        <h3>Final Result:</h3>
+        <p id="result"></p>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
